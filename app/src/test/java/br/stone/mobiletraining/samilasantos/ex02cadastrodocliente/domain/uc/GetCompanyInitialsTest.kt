@@ -20,10 +20,21 @@ class GetCompanyInitialsTest {
     fun `should return at least 3 words from a sentence`() {
 
         // Context
-        val sentence = "Samila Ruane"
+        val sentence = "Samila Ruane B Santos"
         // Action
         val output = GetCompanyInitials.process(sentence).length
         // Check
-        Assert.assertTrue(  output < 3 )
+        Assert.assertTrue(  output <= 3 )
+    }
+
+    @Test
+    fun `should return an empty string`() {
+
+        // Context
+        val sentence = ""
+        // Action
+        val output = GetCompanyInitials.process(sentence)
+        // Check
+        Assert.assertTrue( output.isEmpty() )
     }
 }
