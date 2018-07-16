@@ -1,5 +1,6 @@
 package br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.screenList
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
@@ -8,6 +9,7 @@ import android.view.View
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.R
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.di.EntrepreneurListViewModelInjector
 import kotlinx.android.synthetic.main.activity_entrepreneur_list.*
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.registerScreen.RegisterActivity
 
 class EntrepreneurListActivity : AppCompatActivity(), EntrepreneurListContract.ViewStateObserver {
 
@@ -23,6 +25,8 @@ class EntrepreneurListActivity : AppCompatActivity(), EntrepreneurListContract.V
     private fun setupView() {
         setupActionbar()
         viewModel.getAllEntrepreneurs()
+
+        button_add.setOnClickListener { startActivity(Intent(this, RegisterActivity :: class.java)) }
     }
 
     private fun setupActionbar() {
