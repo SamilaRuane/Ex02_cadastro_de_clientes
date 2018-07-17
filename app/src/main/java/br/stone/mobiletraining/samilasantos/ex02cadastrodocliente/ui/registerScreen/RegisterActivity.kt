@@ -1,8 +1,6 @@
 package br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.registerScreen
 
-import android.app.AlertDialog
 import android.app.DatePickerDialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.SpannableStringBuilder
@@ -10,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.R
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.common.parseToString
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.common.showFeedback
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.di.RegisterViewModelInjector
 import kotlinx.android.synthetic.main.activity_register.*
 import java.util.*
@@ -67,28 +66,20 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.ViewStateObserver
         when (viewState) {
             is RegisterContract.ViewState.GeneralState.Success -> {
                 progress_dialog_layout.visibility = View.GONE
-                displayFeedback(getString(R.string.success_feedback), { dialog, _ ->
+                showFeedback(getString(R.string.success_feedback), { dialog, _ ->
                     dialog.dismiss()
                     finish()
                 })
             }
             is RegisterContract.ViewState.GeneralState.Error -> {
                 progress_dialog_layout.visibility = View.GONE
-                displayFeedback(viewState.feedback, { dialog, _ -> dialog.dismiss() })
+                showFeedback(viewState.feedback, { dialog, _ -> dialog.dismiss() })
             }
             is RegisterContract.ViewState.GeneralState.Loading -> progress_dialog_layout.visibility = View.VISIBLE
             is RegisterContract.ViewState.GeneralState.ConfirmButton -> {
                 manageButtonState(viewState.buttonState)
             }
         }
-    }
-
-    private fun displayFeedback(message: String, listener: (DialogInterface, Int) -> Unit) {
-        val build = AlertDialog.Builder(this)
-        build.setMessage(message)
-        build.setCancelable(false)
-        build.setPositiveButton(getString(R.string.ok_label), listener)
-        build.show()
     }
 
     private fun manageButtonState(state: RegisterContract.ViewState.ButtonState) {

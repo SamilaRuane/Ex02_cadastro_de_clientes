@@ -9,20 +9,26 @@ import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.Entrepr
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.uc.GetCompanyInitials
 import kotlinx.android.synthetic.main.item_recycler_entrepreneurs.view.*
 
-class EntrepreneurAdapter(private val entrepreneurs: List<Entrepreneur>) : RecyclerView.Adapter<EntrepreneurAdapter.ItemViewHolder>() {
+class EntrepreneurAdapter(private val entrepreneurs: List<Entrepreneur>, val listener : OnItemClickListener) : RecyclerView.Adapter<EntrepreneurAdapter.ItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder = ItemViewHolder(LayoutInflater.from(parent.context)
             .inflate(R.layout.item_recycler_entrepreneurs, parent, false))
 
     override fun getItemCount(): Int = entrepreneurs.size
 
-    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) = holder.bind(entrepreneurs[position])
+    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) = holder.bind(entrepreneurs[position], listener)
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(entrepreneur: Entrepreneur) {
+        fun bind(entrepreneur: Entrepreneur, listener : OnItemClickListener) {
             itemView.text_company_initials.text = GetCompanyInitials.process(entrepreneur.tradeName)
             itemView.text_company_name.text = entrepreneur.tradeName
             itemView.text_owner_name.text = entrepreneur.fullName
+
+            itemView.constraint_item.setOnClickListener { listener.onClick(entrepreneur) }
         }
+    }
+
+    interface OnItemClickListener  {
+        fun onClick (entrepreneur: Entrepreneur)
     }
 }
