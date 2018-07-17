@@ -7,6 +7,7 @@ import android.text.SpannableStringBuilder
 import android.view.MenuItem
 import android.view.View
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.R
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.common.ErrorMapper
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.common.parseToString
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.common.showFeedback
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.di.RegisterViewModelInjector
@@ -73,7 +74,7 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.ViewStateObserver
             }
             is RegisterContract.ViewState.GeneralState.Error -> {
                 progress_dialog_layout.visibility = View.GONE
-                showFeedback(viewState.feedback, { dialog, _ -> dialog.dismiss() })
+                showFeedback(ErrorMapper(this).getFeedbackMessage(viewState.code), { dialog, _ -> dialog.dismiss() })
             }
             is RegisterContract.ViewState.GeneralState.Loading -> progress_dialog_layout.visibility = View.VISIBLE
             is RegisterContract.ViewState.GeneralState.ConfirmButton -> {

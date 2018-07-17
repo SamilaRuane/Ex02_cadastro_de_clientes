@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.registerScreen.RegisterActivity" />
-        <activity android:name=".ui.infoScreen.EntrepreneurInfoActivity"></activity>
+        <activity android:name=".ui.infoScreen.EntrepreneurInfoActivity" />
     </application>
 
 </manifest>

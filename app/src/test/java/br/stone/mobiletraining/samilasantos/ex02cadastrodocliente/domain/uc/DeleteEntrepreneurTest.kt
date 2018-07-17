@@ -5,7 +5,8 @@ import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.Reposit
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.common.Result
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.exceptions.RepositoryNotFoundException
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.exceptions.UnavailableRepositoryException
-import org.junit.Assert
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.common.ErrorCode
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.mockito.Mockito
 import java.util.*
@@ -24,7 +25,7 @@ class DeleteEntrepreneurTest {
         val output = DeleteEntrepreneur(repository).execute(objectUnderTest)
 
         //Check
-        Assert.assertTrue(output.status == Result.SUCCESS)
+        assertTrue(output === Result.Success)
     }
 
     @Test
@@ -40,7 +41,9 @@ class DeleteEntrepreneurTest {
         val output = DeleteEntrepreneur(repository).execute(objectUnderTest)
 
         //Check
-        Assert.assertTrue(output.status == Result.ERROR)
+        when (output) {
+            is Result.Error -> assertTrue(output.code == ErrorCode.DELETING_ERROR)
+        }
     }
 
     @Test
@@ -56,6 +59,8 @@ class DeleteEntrepreneurTest {
         val output = DeleteEntrepreneur(repository).execute(objectUnderTest)
 
         //Check
-        Assert.assertTrue(output.status == Result.ERROR)
+        when (output) {
+            is Result.Error -> assertTrue(output.code == ErrorCode.DELETING_ERROR)
+        }
     }
 }

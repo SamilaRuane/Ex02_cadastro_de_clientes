@@ -1,5 +1,7 @@
 package br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.registerScreen
 
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.common.ErrorCode
+
 interface RegisterContract {
     /**
      * States:
@@ -22,7 +24,7 @@ interface RegisterContract {
 
         sealed class GeneralState {
             object Success : GeneralState()
-            data class Error(val feedback: String) : GeneralState()
+            data class Error(val code: ErrorCode) : GeneralState()
             object Loading : GeneralState()
             data class ConfirmButton ( val buttonState : ButtonState ) : GeneralState ()
         }
