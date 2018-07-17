@@ -3,12 +3,9 @@
     <string name="add_btn">Adicionar</string>
     <string name="company_label">Empresa</string>
     <string name="owner_label">Proprietário</string>
-<<<<<<< HEAD
+    <string name="register_screen_label">Criar Cadastro</string>
 
-    <!-- Feedback messages -->
-    <string name="error_feedback">Ocorreu um erro ao tentar recuperar as infomações</string>
-    <string name="no_items_registered">Não há clientes cadastrados no momento.</string>
-=======
+
     <string name="full_name_label">Nome Completo</string>
     <string name="email_label">Email</string>
     <string name="phone_label">Telefone para contato</string>
@@ -17,13 +14,13 @@
     <string name="individualEntrepreneur_label">É MEI?</string>
     <string name="yes_label">SIM</string>
     <string name="no_label">NÃO</string>
+    <string name="ok_label">Ok</string>
     <string name="confirm_button_label">Confirmar</string>
     <string name="data_placeholder">dd/MM/aaaa</string>
 
-
-
-    <!-- Feedback Messages -->
+    <!-- Feedback messages -->
     <string name="success_feedback">Operação realizada com sucesso</string>
+    <string name="error_feedback">Ocorreu um erro ao tentar recuperar as infomações</string>
+    <string name="no_items_registered">Não há clientes cadastrados no momento.</string>
 
->>>>>>> Adding screen responsible for register a new entrepreneur.
 </resources>

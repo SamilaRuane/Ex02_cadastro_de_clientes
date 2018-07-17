@@ -5,11 +5,8 @@ import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.Reposit
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.common.Result.Companion.SUCCESS
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.uc.CreateEntrepreneur
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.common.toDate
-import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.ArrayList
 
-class RegisterViewModel(val calendar: Calendar, private val repository: Repository) {
+class RegisterViewModel(private val repository: Repository) {
 
     private val viewStateObservers = ArrayList<RegisterContract.ViewStateObserver>()
 
@@ -35,17 +32,6 @@ class RegisterViewModel(val calendar: Calendar, private val repository: Reposito
         } else {
             update(RegisterContract.ViewState.GeneralState.ConfirmButton(RegisterContract.ViewState.ButtonState.Disabled))
         }
-    }
-
-
-    fun processDate(year: Int, monthOfYear: Int, dayOfMonth: Int): String {
-        calendar.set(Calendar.YEAR, year)
-        calendar.set(Calendar.MONTH, monthOfYear)
-        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-
-        val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy")
-
-        return simpleDateFormat.format(calendar.time)
     }
 
     fun subscribe(observer: RegisterContract.ViewStateObserver) {

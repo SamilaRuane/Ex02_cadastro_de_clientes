@@ -10,3 +10,14 @@ fun String.toDate () : Date? = try {
 }catch (e : ParseException){
     null
 }
+
+fun Calendar.parseToString (year : Int, monthOfYear : Int, dayOfMonth : Int) : String {
+    this.set(Calendar.YEAR, year)
+    this.set(Calendar.MONTH, monthOfYear)
+    this.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+    val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy")
+
+    return simpleDateFormat.format(this.time)
+}
+
