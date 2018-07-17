@@ -21,8 +21,6 @@ class EntrepreneurListActivity : AppCompatActivity(), EntrepreneurListContract.V
     private fun setupView() {
         setupActionbar()
         viewModel.getAllEntrepreneurs()
-        recycler_main_entrepreneurs.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-       // recycler_main_entrepreneurs.adapter = EntrepreneurAdapter(ArrayList())
     }
 
     private fun setupActionbar() {
@@ -31,7 +29,10 @@ class EntrepreneurListActivity : AppCompatActivity(), EntrepreneurListContract.V
 
     override fun onResult(viewState: EntrepreneurListContract.ViewState) {
         when (viewState) {
-            is EntrepreneurListContract.ViewState.Items -> recycler_main_entrepreneurs.adapter = EntrepreneurAdapter(viewState.list)
+            is EntrepreneurListContract.ViewState.Items -> {
+                recycler_main_entrepreneurs.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+                recycler_main_entrepreneurs.adapter = EntrepreneurAdapter(viewState.list)
+            }
         }
     }
 
