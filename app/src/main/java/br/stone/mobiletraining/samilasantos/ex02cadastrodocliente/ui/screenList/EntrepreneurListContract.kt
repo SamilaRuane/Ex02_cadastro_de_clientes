@@ -6,6 +6,7 @@ interface EntrepreneurListContract {
 
     sealed class ViewState {
         data class Items (val list: List<Entrepreneur>) : ViewState()
+        object Error : ViewState()
     }
 
     interface ViewStateObserver {
