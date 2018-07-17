@@ -18,5 +18,5 @@ data class Entrepreneur(val fullName: String,
     private fun isPhoneValid() = this.phone > 11111111
             || this.phone > 11111111111
 
-    private fun isBirthDateValid() = !birthDate.before(Date())
+    private fun isBirthDateValid() = (birthDate.before(Date()) || birthDate == Date())
 }
