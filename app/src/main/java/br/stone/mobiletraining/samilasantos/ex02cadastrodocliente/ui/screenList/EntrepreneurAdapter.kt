@@ -9,7 +9,7 @@ import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.Entrepr
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.uc.GetCompanyInitials
 import kotlinx.android.synthetic.main.item_recycler_entrepreneurs.view.*
 
-class EntrepreneursAdapter(private val entrepreneurs: List<Entrepreneur>) : RecyclerView.Adapter<EntrepreneursAdapter.ItemViewHolder>() {
+class EntrepreneurAdapter(private val entrepreneurs: List<Entrepreneur>) : RecyclerView.Adapter<EntrepreneurAdapter.ItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder = ItemViewHolder(LayoutInflater.from(parent.context)
             .inflate(R.layout.item_recycler_entrepreneurs, parent, false))
