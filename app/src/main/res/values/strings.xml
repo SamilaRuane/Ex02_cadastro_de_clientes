@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Ex02 Cadastro Do Cliente</string>
+    <string name="add_btn">Adicionar</string>
+    <string name="company_label">Empresa</string>
+    <string name="owner_label">Proprietário</string>
+
+    <!-- Feedback messages -->
+    <string name="error_feedback">Ocorreu um erro ao tentar recuperar as infomações</string>
+    <string name="no_items_registered">Não há clientes cadastrados no momento.</string>
 </resources>
