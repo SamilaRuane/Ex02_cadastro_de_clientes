@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">Ex02 Cadastro Do Cliente</string>
     <string name="add_btn">Adicionar</string>
+    <string name="delete_btn">Excluir</string>
     <string name="company_label">Empresa</string>
     <string name="owner_label">Proprietário</string>
     <string name="register_screen_label">Criar Cadastro</string>
+    <string name="info_screen_label">Detalhes do Cliente</string>
 
 
     <string name="full_name_label">Nome Completo</string>

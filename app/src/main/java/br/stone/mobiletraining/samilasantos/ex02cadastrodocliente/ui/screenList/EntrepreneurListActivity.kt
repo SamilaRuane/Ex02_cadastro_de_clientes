@@ -8,8 +8,8 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.R
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.di.EntrepreneurListViewModelInjector
-import kotlinx.android.synthetic.main.activity_entrepreneur_list.*
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.registerScreen.RegisterActivity
+import kotlinx.android.synthetic.main.activity_entrepreneur_list.*
 
 class EntrepreneurListActivity : AppCompatActivity(), EntrepreneurListContract.ViewStateObserver {
 
