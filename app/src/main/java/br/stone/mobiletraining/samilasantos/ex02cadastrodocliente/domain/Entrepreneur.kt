@@ -1,5 +1,6 @@
 package br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain
 
+import java.io.Serializable
 import java.util.*
 
 data class Entrepreneur(val fullName: String,
@@ -7,7 +8,7 @@ data class Entrepreneur(val fullName: String,
                         val phone: Long,
                         val tradeName: String,
                         val birthDate: Date,
-                        val individualEntrepreneur: Boolean) {
+                        val individualEntrepreneur: Boolean) : Serializable {
 
     fun isValid() = !this.fullName.isEmpty()
             && !this.email.isEmpty()
