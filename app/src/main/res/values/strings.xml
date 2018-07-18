@@ -25,5 +25,9 @@
     <string name="success_feedback">Operação realizada com sucesso</string>
     <string name="error_feedback">Ocorreu um erro ao tentar recuperar as infomações</string>
     <string name="no_items_registered">Não há clientes cadastrados no momento.</string>
+    <string name="saving_user_error_feedback">Ocorreu um erro ao salvar usuário.</string>
+    <string name="no_valid_info_feedback">Por favor preencha todos os campos com informações válidas.</string>
+    <string name="deleting_user_error_feedback">Ocorreu um erro ao deletar usuário.</string>
+    <string name="invalid_date_feedback">A data informada é inválida!</string>
 
 </resources>

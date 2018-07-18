@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.R
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.Entrepreneur
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.common.ErrorMapper
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.common.parseToString
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.common.showFeedback
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.di.EntrepreneurInfoViewModelInjector
@@ -49,7 +50,7 @@ class EntrepreneurInfoActivity : AppCompatActivity(), EntrepreneurInfoContract.V
                         dialog.dismiss()
                         finish()
                     })
-            is EntrepreneurInfoContract.ViewState.GeneralState.Error -> showFeedback(getString(R.string.error_feedback),
+            is EntrepreneurInfoContract.ViewState.GeneralState.Error -> showFeedback(ErrorMapper(this).getFeedbackMessage(viewState.code),
                     { dialog, _ -> dialog.dismiss() })
         }
     }

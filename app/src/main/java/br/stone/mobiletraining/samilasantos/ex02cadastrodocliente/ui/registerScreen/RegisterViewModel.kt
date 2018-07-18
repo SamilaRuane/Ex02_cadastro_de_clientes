@@ -2,8 +2,9 @@ package br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.registerSc
 
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.Entrepreneur
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.Repository
-import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.common.Result.Companion.SUCCESS
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.common.Result
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.uc.CreateEntrepreneur
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.common.ErrorCode
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.common.toDate
 
 class RegisterViewModel(private val repository: Repository) {
@@ -17,10 +18,13 @@ class RegisterViewModel(private val repository: Repository) {
                     item.email, if (!item.phone.isEmpty()) item.phone.toLong() else 0,
                     item.tradeName, item.birthDate.toDate()!!, item.individualEntrepreneur))
 
-            if (result.status == SUCCESS) update(RegisterContract.ViewState.GeneralState.Success)
-            else update(RegisterContract.ViewState.GeneralState.Error(result.message))
+            when (result) {
+
+                is Result.Success -> update(RegisterContract.ViewState.GeneralState.Success)
+                is Result.Error -> update(RegisterContract.ViewState.GeneralState.Error(result.code))
+            }
         } else {
-            update(RegisterContract.ViewState.GeneralState.Error("A data informada é inválida!"))
+            update(RegisterContract.ViewState.GeneralState.Error(ErrorCode.INVALID_DATE))
         }
     }
 

@@ -5,24 +5,16 @@ import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.Reposit
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.common.Result
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.exceptions.RepositoryNotFoundException
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.exceptions.UnavailableRepositoryException
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.common.ErrorCode
 
 class DeleteEntrepreneur(private val repository: Repository) {
-
-    companion object {
-        private const val ERROR_FEEDBACK = "Ocorreu um erro ao deletar usuário"
-    }
-
-    fun execute(entity: Entrepreneur) : Result = try {
+    fun execute(entity: Entrepreneur): Result = try {
         repository.delete(entity)
-        Result (Result.SUCCESS, "")
+        Result.Success
     } catch (e: UnavailableRepositoryException) {
-        Result(Result.ERROR,
-                if (e.message != null && e.message.isNotEmpty()) e.message
-                else DeleteEntrepreneur.ERROR_FEEDBACK)
+        Result.Error(ErrorCode.DELETING_ERROR)
     } catch (e: RepositoryNotFoundException) {
-        Result(Result.ERROR,
-                if (e.message != null && e.message.isNotEmpty()) e.message
-                else DeleteEntrepreneur.ERROR_FEEDBACK)
+        Result.Error(ErrorCode.DELETING_ERROR)
     }
 
 }
