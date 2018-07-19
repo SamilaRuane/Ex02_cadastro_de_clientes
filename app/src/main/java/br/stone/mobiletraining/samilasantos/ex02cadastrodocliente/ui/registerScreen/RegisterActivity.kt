@@ -7,8 +7,8 @@ import android.text.SpannableStringBuilder
 import android.view.MenuItem
 import android.view.View
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.R
-import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.common.ErrorMapper
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.App
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.common.ErrorMapper
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.common.parseToString
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.common.showFeedback
 import kotlinx.android.synthetic.main.activity_register.*
@@ -22,13 +22,14 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.ViewStateObserver
         edit_birth_date.text = SpannableStringBuilder(calendar.parseToString(year, monthOfYear, dayOfMonth))
     }
 
-    private val viewModel: RegisterViewModel = App.injector.registerViewModelDependency().inject()
+    private lateinit var viewModel: RegisterViewModel
 
     private lateinit var entrepreneur: RegisterContract.ViewState.Item.EntrepreneurInfo
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+        viewModel = (application as App).injector.registerVMInstance()
         viewModel.subscribe(this)
         setupView()
     }
@@ -107,7 +108,7 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.ViewStateObserver
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item?.itemId){
+        when (item?.itemId) {
             android.R.id.home -> finish()
         }
         return super.onOptionsItemSelected(item)

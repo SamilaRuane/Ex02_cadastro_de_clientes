@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_entrepreneur_list.*
 
 class EntrepreneurListActivity : AppCompatActivity(), EntrepreneurListContract.ViewStateObserver, EntrepreneurAdapter.OnItemClickListener {
 
-    private val viewModel = App.injector.entrepreneurListViewModelDependency().inject()
+    private lateinit var viewModel : EntrepreneurListViewModel
 
     companion object {
         const val EXTRA_ENTREPRENEUR = "ENTREPRENEUR"
@@ -24,7 +24,9 @@ class EntrepreneurListActivity : AppCompatActivity(), EntrepreneurListContract.V
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_entrepreneur_list)
+        viewModel = (application as App).injector.entrepreneurListVMInstance()
         viewModel.subscribe(this)
+
         setupView()
     }
 
