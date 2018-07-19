@@ -8,9 +8,9 @@ import android.view.MenuItem
 import android.view.View
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.R
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.common.ErrorMapper
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.App
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.common.parseToString
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.common.showFeedback
-import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.di.RegisterViewModelInjector
 import kotlinx.android.synthetic.main.activity_register.*
 import java.util.*
 
@@ -22,7 +22,7 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.ViewStateObserver
         edit_birth_date.text = SpannableStringBuilder(calendar.parseToString(year, monthOfYear, dayOfMonth))
     }
 
-    private val viewModel: RegisterViewModel = RegisterViewModelInjector().inject()
+    private val viewModel: RegisterViewModel = App.injector.registerViewModelDependency().inject()
 
     private lateinit var entrepreneur: RegisterContract.ViewState.Item.EntrepreneurInfo
 

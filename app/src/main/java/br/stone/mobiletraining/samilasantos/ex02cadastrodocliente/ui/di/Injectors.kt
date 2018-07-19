@@ -2,9 +2,24 @@ package br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.di
 
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.Entrepreneur
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.Repository
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.infoScreen.EntrepreneurInfoViewModel
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.registerScreen.RegisterViewModel
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.screenList.EntrepreneurListViewModel
 import java.util.*
 
-class RepositoryInjector {
+class RegisterViewModelInjector (private val repositoryInstance : Repository) {
+    fun inject(): RegisterViewModel = RegisterViewModel(repositoryInstance)
+}
+
+class EntrepreneurListViewModelInjector (private val repositoryInstance : Repository) {
+    fun inject (): EntrepreneurListViewModel = EntrepreneurListViewModel(repositoryInstance)
+}
+
+class EntrepreneurInfoViewModelInjector(private val repositoryInstance : Repository) {
+    fun inject() = EntrepreneurInfoViewModel(repositoryInstance)
+}
+
+class RepositoryInjector  {
     fun inject () : Repository = InMemoryRepository()
 }
 

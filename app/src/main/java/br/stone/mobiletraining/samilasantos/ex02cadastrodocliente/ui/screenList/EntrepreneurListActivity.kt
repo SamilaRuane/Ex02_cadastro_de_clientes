@@ -7,15 +7,15 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.R
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.Entrepreneur
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.App
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.common.showFeedback
-import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.di.EntrepreneurListViewModelInjector
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.infoScreen.EntrepreneurInfoActivity
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.registerScreen.RegisterActivity
 import kotlinx.android.synthetic.main.activity_entrepreneur_list.*
 
 class EntrepreneurListActivity : AppCompatActivity(), EntrepreneurListContract.ViewStateObserver, EntrepreneurAdapter.OnItemClickListener {
 
-    private val viewModel = EntrepreneurListViewModelInjector().inject()
+    private val viewModel = App.injector.entrepreneurListViewModelDependency().inject()
 
     companion object {
         const val EXTRA_ENTREPRENEUR = "ENTREPRENEUR"
