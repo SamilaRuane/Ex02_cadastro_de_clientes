@@ -7,7 +7,10 @@ import android.support.test.espresso.matcher.ViewMatchers.withId
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.R
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.di.GraphBuilder
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.di.GraphConfigurator
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.di.Mode
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.di.TestRepository
 import org.junit.BeforeClass
 import org.junit.Rule
 import org.junit.Test
@@ -33,7 +36,9 @@ class EntrepreneurListActivityTest {
         @BeforeClass
         @JvmStatic
         fun config() {
-            GraphConfigurator.getInstance(whoCalledMe = this)
+            GraphConfigurator.getInstance(mode = Mode.Test(GraphBuilder.builder()
+                    .override()
+                    .repository(TestRepository()).build()!!))
         }
     }
 }

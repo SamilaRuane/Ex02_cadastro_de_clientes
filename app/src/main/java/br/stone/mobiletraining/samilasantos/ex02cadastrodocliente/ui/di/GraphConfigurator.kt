@@ -2,12 +2,12 @@ package br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.di
 
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.Entrepreneur
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.Repository
-import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.App
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.infoScreen.EntrepreneurInfoViewModel
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.registerScreen.RegisterViewModel
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.screenList.EntrepreneurListViewModel
 import com.github.salomonbrys.kodein.*
 import java.util.*
+
 
 val diModule = Kodein.Module {
     bind<Repository>() with singleton {
@@ -31,37 +31,103 @@ val appContainer = Kodein {
     import(diModule)
 }
 
-val testContainer = Kodein {
+
+fun configureContainer(graph: Graph): Kodein = Kodein {
     import(diModule)
-    bind<Repository>(overrides = true) with provider {
-        TestRepository()
+    if (graph.repository != null) {
+        bind<Repository>(overrides = true) with singleton {
+            graph.repository as Repository
+        }
+    }
+
+    if (graph.infoViewModel != null) {
+        bind<EntrepreneurInfoViewModel>(overrides = true) with provider {
+            graph.infoViewModel as EntrepreneurInfoViewModel
+        }
+    }
+
+    if (graph.listViewModel != null) {
+        bind<EntrepreneurListViewModel>(overrides = true) with provider {
+            graph.listViewModel as EntrepreneurListViewModel
+        }
+    }
+
+    if (graph.registerViewModel != null) {
+        bind<RegisterViewModel>(overrides = true) with provider {
+            graph.registerViewModel as RegisterViewModel
+        }
     }
 }
 
-class GraphConfigurator(private val whoCalledMe: Any) {
+
+data class Graph(var repository: Repository? = null,
+                 var infoViewModel: EntrepreneurInfoViewModel? = null,
+                 var registerViewModel: RegisterViewModel? = null,
+                 var listViewModel: EntrepreneurListViewModel? = null)
+
+
+class GraphBuilder(private val graph: Graph?) {
+
+    companion object {
+        fun builder() = GraphBuilder(Graph())
+    }
+
+    fun build(): Graph? {
+        return graph
+    }
+
+    fun override() = GraphBuilder(graph)
+
+    fun repository(instance: Repository): GraphBuilder {
+        graph?.repository = instance
+        return this
+    }
+
+    fun infoViewModel(instance: EntrepreneurInfoViewModel): GraphBuilder {
+        graph?.infoViewModel = instance
+        return this
+    }
+
+    fun registerViewModel(instance: RegisterViewModel): GraphBuilder {
+        graph?.registerViewModel = instance
+        return this
+    }
+
+    fun listViewModel(instance: EntrepreneurListViewModel): GraphBuilder {
+        graph?.listViewModel = instance
+        return this
+    }
+}
+
+sealed class Mode {
+    object App : Mode()
+    data class Test(val graph: Graph) : Mode()
+}
+
+class GraphConfigurator(private val mode: Mode) {
     companion object {
         private var configurator: GraphConfigurator? = null
 
-        fun getInstance(whoCalledMe: Any): GraphConfigurator {
-            if (configurator == null) configurator = GraphConfigurator(whoCalledMe)
+        fun getInstance(mode: Mode): GraphConfigurator {
+            if (configurator == null) configurator = GraphConfigurator(mode)
 
             return configurator as GraphConfigurator
         }
     }
 
-    fun entrepreneurInfoVMInstance(): EntrepreneurInfoViewModel = when (whoCalledMe) {
-        is App -> appContainer.instance()
-        else -> testContainer.instance()
+    fun entrepreneurInfoVMInstance(): EntrepreneurInfoViewModel = when (mode) {
+        is Mode.App -> appContainer.instance()
+        is Mode.Test -> configureContainer(mode.graph).instance()
     }
 
-    fun entrepreneurListVMInstance(): EntrepreneurListViewModel = when (whoCalledMe) {
-        is App -> appContainer.instance()
-        else -> testContainer.instance()
+    fun entrepreneurListVMInstance(): EntrepreneurListViewModel = when (mode) {
+        is Mode.App -> appContainer.instance()
+        is Mode.Test -> configureContainer(mode.graph).instance()
     }
 
-    fun registerVMInstance(): RegisterViewModel = when (whoCalledMe) {
-        is App -> appContainer.instance()
-        else -> testContainer.instance()
+    fun registerVMInstance(): RegisterViewModel = when (mode) {
+        is Mode.App -> appContainer.instance()
+        is Mode.Test -> configureContainer(mode.graph).instance()
     }
 }
 
@@ -74,6 +140,14 @@ class TestRepository : Repository {
             Entrepreneur("Empresário A", "empresarioonA@gmail.com", 2122222222, "Empresa A", Date(), true),
             Entrepreneur("Empresário B", "empresarioB@gmail.com", 2122222222, "Empresa B", Date(), true),
             Entrepreneur("Empresário C", "empresarioC@gmail.com", 2122222222, "Empresa C", Date(), true))
+}
+
+class EmptyRepository : Repository {
+    override fun create(entity: Entrepreneur): Boolean = true
+
+    override fun delete(entity: Entrepreneur): Boolean = true
+
+    override fun findAll(): List<Entrepreneur> = arrayListOf()
 }
 
 class InMemoryRepository : Repository {
