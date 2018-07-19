@@ -33,7 +33,7 @@ class EntrepreneurListActivityTest {
         @BeforeClass
         @JvmStatic
         fun config() {
-            GraphConfigurator.getInstance(whoCalls = this)
+            GraphConfigurator.getInstance(whoCalledMe = this)
         }
     }
 }

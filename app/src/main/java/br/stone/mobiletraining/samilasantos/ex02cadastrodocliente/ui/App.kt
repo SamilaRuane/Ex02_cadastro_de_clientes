@@ -5,5 +5,5 @@ import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.di.GraphCon
 
 class App : Application(){
     val injector: GraphConfigurator
-            get () =  GraphConfigurator.getInstance(whoCalls = this)
+            get () =  GraphConfigurator.getInstance(whoCalledMe = this)
 }

@@ -38,28 +38,28 @@ val testContainer = Kodein {
     }
 }
 
-class GraphConfigurator(private val whoInstancedMe: Any) {
+class GraphConfigurator(private val whoCalledMe: Any) {
     companion object {
         private var configurator: GraphConfigurator? = null
 
-        fun getInstance(whoCalls: Any): GraphConfigurator {
-            if (configurator == null) configurator = GraphConfigurator(whoCalls)
+        fun getInstance(whoCalledMe: Any): GraphConfigurator {
+            if (configurator == null) configurator = GraphConfigurator(whoCalledMe)
 
             return configurator as GraphConfigurator
         }
     }
 
-    fun entrepreneurInfoVMInstance(): EntrepreneurInfoViewModel = when (whoInstancedMe) {
+    fun entrepreneurInfoVMInstance(): EntrepreneurInfoViewModel = when (whoCalledMe) {
         is App -> appContainer.instance()
         else -> testContainer.instance()
     }
 
-    fun entrepreneurListVMInstance(): EntrepreneurListViewModel = when (whoInstancedMe) {
+    fun entrepreneurListVMInstance(): EntrepreneurListViewModel = when (whoCalledMe) {
         is App -> appContainer.instance()
         else -> testContainer.instance()
     }
 
-    fun registerVMInstance(): RegisterViewModel = when (whoInstancedMe) {
+    fun registerVMInstance(): RegisterViewModel = when (whoCalledMe) {
         is App -> appContainer.instance()
         else -> testContainer.instance()
     }
