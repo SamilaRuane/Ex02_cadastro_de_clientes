@@ -7,11 +7,7 @@ import android.support.test.espresso.matcher.ViewMatchers.withId
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.R
-import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.di.GraphBuilder
-import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.di.GraphConfigurator
-import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.di.Mode
-import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.di.TestRepository
-import org.junit.BeforeClass
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.di.*
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -27,18 +23,22 @@ class EntrepreneurListActivityTest {
 
     @Test
     fun whenActivityIsLaunched_shouldDisplayAList() {
+        GraphConfigurator.getInstance().mode = Mode.Test(GraphBuilder.builder()
+                .override()
+                .repository(TestRepository()).build()!!)
         mActivityRule.launchActivity(null)
         Espresso.onView(withId(R.id.recycler_main_entrepreneurs)).check(matches(isDisplayed()))
         Espresso.onView(withId(R.id.button_add)).check(matches(isDisplayed()))
     }
 
-    companion object {
-        @BeforeClass
-        @JvmStatic
-        fun config() {
-            GraphConfigurator.getInstance(mode = Mode.Test(GraphBuilder.builder()
-                    .override()
-                    .repository(TestRepository()).build()!!))
-        }
+    @Test
+    fun whenActivityIsLaunched_shouldDisplayNoClientText() {
+        GraphConfigurator.getInstance().mode = Mode.Test(GraphBuilder.builder()
+                .override()
+                .repository(EmptyRepository())
+                .build()!!)
+        mActivityRule.launchActivity(null)
+        Espresso.onView(withId(R.id.text_empty_view)).check(matches(isDisplayed()))
+        Espresso.onView(withId(R.id.button_add)).check(matches(isDisplayed()))
     }
 }

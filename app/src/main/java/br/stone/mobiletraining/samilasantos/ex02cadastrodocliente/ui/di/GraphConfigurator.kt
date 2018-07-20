@@ -104,30 +104,35 @@ sealed class Mode {
     data class Test(val graph: Graph) : Mode()
 }
 
-class GraphConfigurator(private val mode: Mode) {
+class GraphConfigurator private constructor() {
     companion object {
         private var configurator: GraphConfigurator? = null
 
-        fun getInstance(mode: Mode): GraphConfigurator {
-            if (configurator == null) configurator = GraphConfigurator(mode)
+        fun getInstance(): GraphConfigurator {
+            if (configurator == null) configurator = GraphConfigurator()
 
             return configurator as GraphConfigurator
         }
     }
 
+    var mode: Mode? = null
+
     fun entrepreneurInfoVMInstance(): EntrepreneurInfoViewModel = when (mode) {
         is Mode.App -> appContainer.instance()
-        is Mode.Test -> configureContainer(mode.graph).instance()
+        is Mode.Test -> configureContainer((mode as Mode.Test).graph).instance()
+        else -> appContainer.instance()
     }
 
     fun entrepreneurListVMInstance(): EntrepreneurListViewModel = when (mode) {
         is Mode.App -> appContainer.instance()
-        is Mode.Test -> configureContainer(mode.graph).instance()
+        is Mode.Test -> configureContainer((mode as Mode.Test).graph).instance()
+        else -> appContainer.instance()
     }
 
     fun registerVMInstance(): RegisterViewModel = when (mode) {
         is Mode.App -> appContainer.instance()
-        is Mode.Test -> configureContainer(mode.graph).instance()
+        is Mode.Test -> configureContainer((mode as Mode.Test).graph).instance()
+        else -> appContainer.instance()
     }
 }
 
