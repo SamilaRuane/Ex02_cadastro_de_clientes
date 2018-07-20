@@ -12,7 +12,11 @@ import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
 import android.support.test.espresso.matcher.ViewMatchers.withId
 import android.support.test.runner.AndroidJUnit4
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.R
-import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.di.*
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.UiTest
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.di.EmptyRepository
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.di.GraphBuilder
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.di.GraphConfigurator
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.di.Mode
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.infoScreen.EntrepreneurInfoActivity
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.registerScreen.RegisterActivity
 import org.junit.Rule
@@ -21,13 +25,12 @@ import org.junit.runner.RunWith
 
 
 @RunWith(AndroidJUnit4::class)
-class EntrepreneurListActivityTest {
+class EntrepreneurListActivityTest : UiTest() {
 
     @Rule
     @JvmField
     val mActivityRule = IntentsTestRule<EntrepreneurListActivity>(
             EntrepreneurListActivity::class.java, false, false)
-
 
     @Test
     fun whenActivityIsLaunched_shouldDisplayAList() {
@@ -64,12 +67,5 @@ class EntrepreneurListActivityTest {
         mActivityRule.launchActivity(null)
         onView(withId(R.id.button_add)).perform(click())
         intended(hasComponent(RegisterActivity::class.java.name))
-    }
-
-    private fun defineTestRepository() {
-        GraphConfigurator.getInstance().mode = Mode.Test(GraphBuilder.builder()
-                .override()
-                .repository(TestRepository())
-                .build()!!)
     }
 }
