@@ -2,9 +2,11 @@ package br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.infoScreen
 
 import android.content.Intent
 import android.support.test.espresso.Espresso.onView
+import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.action.ViewActions.scrollTo
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.intent.rule.IntentsTestRule
+import android.support.test.espresso.matcher.ViewMatchers
 import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
 import android.support.test.espresso.matcher.ViewMatchers.withId
 import android.support.test.runner.AndroidJUnit4
@@ -48,5 +50,14 @@ class EntrepreneurInfoActivityTest : UiTest() {
         onView(withId(R.id.text_phone)).check(matches(isDisplayed()))
         onView(withId(R.id.text_birth_date)).check(matches(isDisplayed()))
         onView(withId(R.id.text_individual_entrepreneur)).perform(scrollTo()).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun whenClickDeleteButton_shouldDisplayAnSuccessDialog() {
+        defineTestRepository()
+        mActivityRule.launchActivity(intent)
+        onView(withId(R.id.button_delete)).perform(click())
+        onView(ViewMatchers.withText("Operação realizada com sucesso")).check(matches(isDisplayed()))
+        onView(withId(android.R.id.button1)).perform(click())
     }
 }
