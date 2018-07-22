@@ -1,5 +1,6 @@
 package br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.screenList
 
+import android.support.test.InstrumentationRegistry
 import android.support.test.espresso.Espresso
 import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.action.ViewActions.click
@@ -12,8 +13,8 @@ import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
 import android.support.test.espresso.matcher.ViewMatchers.withId
 import android.support.test.runner.AndroidJUnit4
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.R
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.data.EmptyRepository
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.UiTest
-import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.di.EmptyRepository
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.di.GraphBuilder
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.di.GraphConfigurator
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.di.Mode
@@ -34,7 +35,10 @@ class EntrepreneurListActivityTest : UiTest() {
 
     @Test
     fun whenActivityIsLaunched_shouldDisplayAList() {
-        defineTestRepository()
+        defineTestRepository(GraphConfigurator
+                .getInstance(InstrumentationRegistry
+                        .getInstrumentation().targetContext))
+
         mActivityRule.launchActivity(null)
         Espresso.onView(withId(R.id.recycler_main_entrepreneurs)).check(matches(isDisplayed()))
         Espresso.onView(withId(R.id.button_add)).check(matches(isDisplayed()))
@@ -42,7 +46,8 @@ class EntrepreneurListActivityTest : UiTest() {
 
     @Test
     fun whenActivityIsLaunched_shouldDisplayNoClientText() {
-        GraphConfigurator.getInstance().mode = Mode.Test(GraphBuilder.builder()
+        GraphConfigurator.getInstance((InstrumentationRegistry.getInstrumentation().targetContext))
+                .mode = Mode.Test(GraphBuilder.builder()
                 .override()
                 .repository(EmptyRepository())
                 .build()!!)
@@ -53,7 +58,9 @@ class EntrepreneurListActivityTest : UiTest() {
 
     @Test
     fun whenClickOnItem_shouldOpenInfoActivity() {
-        defineTestRepository()
+        defineTestRepository(GraphConfigurator
+                .getInstance(InstrumentationRegistry
+                        .getInstrumentation().targetContext))
         mActivityRule.launchActivity(null)
 
         onView(withId(R.id.recycler_main_entrepreneurs)).perform(RecyclerViewActions
@@ -63,7 +70,9 @@ class EntrepreneurListActivityTest : UiTest() {
 
     @Test
     fun whenClickOnButton_shouldOpenRegisterActivity() {
-        defineTestRepository()
+        defineTestRepository(GraphConfigurator
+                .getInstance(InstrumentationRegistry
+                        .getInstrumentation().targetContext))
         mActivityRule.launchActivity(null)
         onView(withId(R.id.button_add)).perform(click())
         intended(hasComponent(RegisterActivity::class.java.name))
