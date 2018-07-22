@@ -93,6 +93,7 @@ data class EntrepreneurData(val id: Long,
                             val phone: Long,
                             @SerializedName("trade_name")
                             val tradeName: String,
+                            @SerializedName("birth_date")
                             val birthDate: Long,
                             @SerializedName("individual_entrepreneur")
                             val individualEntrepreneur: Boolean)
