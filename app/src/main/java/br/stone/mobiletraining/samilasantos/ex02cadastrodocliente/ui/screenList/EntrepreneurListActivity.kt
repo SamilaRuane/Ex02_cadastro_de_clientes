@@ -68,7 +68,7 @@ class EntrepreneurListActivity : AppCompatActivity(), EntrepreneurListContract.V
 
     override fun onClick(entrepreneur: Entrepreneur) {
         val intent = Intent(this, EntrepreneurInfoActivity::class.java)
-        intent.putExtra(EXTRA_ENTREPRENEUR, entrepreneur)
+        intent.putExtra(EXTRA_ENTREPRENEUR, entrepreneur.id)
         startActivity(intent)
     }
 }

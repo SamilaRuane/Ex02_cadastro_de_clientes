@@ -4,14 +4,14 @@ import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.data.Entrepren
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.Entrepreneur
 
 object Mapper {
-    fun toEntrepreneur(entrepreneurData: EntrepreneurData): Entrepreneur = Entrepreneur(fullName = entrepreneurData.fullName,
+    fun toEntrepreneur(entrepreneurData: EntrepreneurData): Entrepreneur = Entrepreneur(id = entrepreneurData.id, fullName = entrepreneurData.fullName,
             email = entrepreneurData.email,
             phone = entrepreneurData.phone,
             tradeName = entrepreneurData.tradeName,
             birthDate = entrepreneurData.birthDate.toDate(),
             individualEntrepreneur = (entrepreneurData.individualEntrepreneur == "Sim"))
 
-    fun toEntrepreneurData(entrepreneur: Entrepreneur): EntrepreneurData = EntrepreneurData(id = 0, fullName = entrepreneur.fullName,
+    fun toEntrepreneurData(entrepreneur: Entrepreneur): EntrepreneurData = EntrepreneurData(id = entrepreneur.id, fullName = entrepreneur.fullName,
             email = entrepreneur.email,
             phone = entrepreneur.phone,
             tradeName = entrepreneur.tradeName,

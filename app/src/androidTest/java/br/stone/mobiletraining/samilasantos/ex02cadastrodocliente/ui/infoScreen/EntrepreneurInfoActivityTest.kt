@@ -12,14 +12,12 @@ import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
 import android.support.test.espresso.matcher.ViewMatchers.withId
 import android.support.test.runner.AndroidJUnit4
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.R
-import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.Entrepreneur
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.UiTest
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.di.GraphConfigurator
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.util.*
 
 @RunWith(AndroidJUnit4::class)
 class EntrepreneurInfoActivityTest : UiTest() {
@@ -34,13 +32,7 @@ class EntrepreneurInfoActivityTest : UiTest() {
     @Before
     fun config() {
         intent = Intent()
-        intent.putExtra("ENTREPRENEUR", Entrepreneur(
-                fullName = "Empresário A",
-                email = "empresarioonA@gmail.com",
-                phone = 2122222222,
-                tradeName = "Empresa A",
-                birthDate = Calendar.getInstance(),
-                individualEntrepreneur = true))
+        intent.putExtra("ENTREPRENEUR", 0)
     }
 
     @Test

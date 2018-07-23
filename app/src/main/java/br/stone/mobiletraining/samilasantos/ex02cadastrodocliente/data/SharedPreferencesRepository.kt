@@ -57,7 +57,7 @@ class SharedPreferencesRepository(val context: Context) : Repository {
 
     override fun delete(entity: Entrepreneur): Boolean = try {
         val data = (getData() as ArrayList)
-        val targetObject = data.single { it.fullName == entity.fullName }
+        val targetObject = data.single { it.id == entity.id }
         data.remove(targetObject)
 
         sharedPreferences.edit().putString(KEYS.ENTREPRENEUR_DATA.key, "").apply()

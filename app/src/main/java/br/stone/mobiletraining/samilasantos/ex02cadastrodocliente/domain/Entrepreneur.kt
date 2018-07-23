@@ -3,7 +3,8 @@ package br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain
 import java.io.Serializable
 import java.util.*
 
-data class Entrepreneur(val fullName: String,
+data class Entrepreneur(val id : Long = 0,
+                        val fullName: String,
                         val email: String,
                         val phone: Long,
                         val tradeName: String,

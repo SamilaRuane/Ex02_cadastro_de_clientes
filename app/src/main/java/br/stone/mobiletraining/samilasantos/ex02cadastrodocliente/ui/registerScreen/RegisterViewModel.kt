@@ -29,7 +29,7 @@ class RegisterViewModel(private val repository: Repository) {
         if (entrepreneurInfo != null && checkIfAllFieldAreFilled(entrepreneurInfo!!)) {
             if (birthDate.toDate() != null) {
                 update(RegisterContract.ViewState.GeneralState.Loading)
-                val result = CreateEntrepreneur(repository).execute(Entrepreneur(fullName,
+                val result = CreateEntrepreneur(repository).execute(Entrepreneur(0, fullName,
                         email, if (!phone.isEmpty()) phone.toLong() else 0,
                         tradeName, birthDate.toDate()!!, individualEntrepreneur))
 
