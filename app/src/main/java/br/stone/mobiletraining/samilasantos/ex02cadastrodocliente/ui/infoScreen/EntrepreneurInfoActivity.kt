@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.R
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.data.common.parseToString
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.data.common.showFeedback
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.Entrepreneur
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.App
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.common.ErrorMapper
-import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.common.parseToString
-import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.common.showFeedback
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.screenList.EntrepreneurListActivity
 import kotlinx.android.synthetic.main.activity_entrepreneur_info.*
 

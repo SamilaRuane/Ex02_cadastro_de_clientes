@@ -2,7 +2,6 @@ package br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.data.common
 
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.data.EntrepreneurData
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.Entrepreneur
-import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.common.toDate
 
 object Mapper {
     fun toEntrepreneur(entrepreneurData: EntrepreneurData): Entrepreneur = Entrepreneur(fullName = entrepreneurData.fullName,
