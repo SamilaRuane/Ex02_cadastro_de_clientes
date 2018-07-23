@@ -13,20 +13,20 @@ interface RegisterContract {
      * */
 
     sealed class ViewState {
-        sealed class Item {
-            data class EntrepreneurInfo(val fullName: String = "",
-                                        val email: String = "",
-                                        val phone: String = "",
-                                        val tradeName: String = "",
-                                        val birthDate: String = "",
-                                        val individualEntrepreneur: Boolean = false) : Item()
-        }
+        data class EntrepreneurInfo(val fullName: String = "",
+                                    val email: String = "",
+                                    val phone: String = "",
+                                    val tradeName: String = "",
+                                    val birthDate: String = "",
+                                    val individualEntrepreneur: Boolean = false)
+
 
         sealed class GeneralState {
             object Success : GeneralState()
             data class Error(val code: ErrorCode) : GeneralState()
             object Loading : GeneralState()
-            data class ConfirmButton ( val buttonState : ButtonState ) : GeneralState ()
+            data class ConfirmButton(val buttonState: ButtonState) : GeneralState()
+            data class ItemState(val entrepreneurInfo: EntrepreneurInfo) : GeneralState()
         }
 
         sealed class ButtonState {

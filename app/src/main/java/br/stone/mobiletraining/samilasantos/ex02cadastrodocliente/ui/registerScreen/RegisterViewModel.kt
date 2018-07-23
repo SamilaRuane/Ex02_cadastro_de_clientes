@@ -10,32 +10,50 @@ import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.common.Erro
 class RegisterViewModel(private val repository: Repository) {
 
     private val viewStateObservers = ArrayList<RegisterContract.ViewStateObserver>()
+    private var entrepreneurInfo: RegisterContract.ViewState.EntrepreneurInfo? = null
 
-    fun handleConfirmAction(item: RegisterContract.ViewState.Item.EntrepreneurInfo) {
-        if (item.birthDate.toDate() != null) {
-            update(RegisterContract.ViewState.GeneralState.Loading)
-            val result = CreateEntrepreneur(repository).execute(Entrepreneur(item.fullName,
-                    item.email, if (!item.phone.isEmpty()) item.phone.toLong() else 0,
-                    item.tradeName, item.birthDate.toDate()!!, item.individualEntrepreneur))
+    fun handleConfirmAction(fullName: String,
+                            email: String,
+                            phone: String,
+                            tradeName: String,
+                            birthDate: String,
+                            individualEntrepreneur: Boolean) {
 
-            when (result) {
+        entrepreneurInfo = RegisterContract.ViewState.EntrepreneurInfo(fullName = fullName,
+                email = email,
+                phone = phone,
+                tradeName = tradeName,
+                birthDate = birthDate,
+                individualEntrepreneur = individualEntrepreneur)
 
-                is Result.Success -> update(RegisterContract.ViewState.GeneralState.Success)
-                is Result.Error -> update(RegisterContract.ViewState.GeneralState.Error(result.code))
+        if (entrepreneurInfo != null && checkIfAllFieldAreFilled(entrepreneurInfo!!)) {
+            if (birthDate.toDate() != null) {
+                update(RegisterContract.ViewState.GeneralState.Loading)
+                val result = CreateEntrepreneur(repository).execute(Entrepreneur(fullName,
+                        email, if (!phone.isEmpty()) phone.toLong() else 0,
+                        tradeName, birthDate.toDate()!!, individualEntrepreneur))
+
+                when (result) {
+
+                    is Result.Success -> update(RegisterContract.ViewState.GeneralState.Success)
+                    is Result.Error -> update(RegisterContract.ViewState.GeneralState.Error(result.code))
+                }
+            } else {
+                update(RegisterContract.ViewState.GeneralState.Error(ErrorCode.INVALID_DATE))
             }
-        } else {
-            update(RegisterContract.ViewState.GeneralState.Error(ErrorCode.INVALID_DATE))
-        }
-    }
-
-    fun handleOnFocusChange(item: RegisterContract.ViewState.Item.EntrepreneurInfo) {
-        if (!item.fullName.isEmpty() && !item.email.isEmpty()
-                && !item.phone.isEmpty() && !item.tradeName.isEmpty()
-                && !item.birthDate.isEmpty()) {
-            update(RegisterContract.ViewState.GeneralState.ConfirmButton(RegisterContract.ViewState.ButtonState.Enabled))
         } else {
             update(RegisterContract.ViewState.GeneralState.ConfirmButton(RegisterContract.ViewState.ButtonState.Disabled))
         }
+    }
+
+    fun handleOnResume() {
+       if(entrepreneurInfo != null) update(RegisterContract.ViewState.GeneralState.ItemState(entrepreneurInfo = entrepreneurInfo!!))
+    }
+
+    private fun checkIfAllFieldAreFilled(entrepreneurInfo: RegisterContract.ViewState.EntrepreneurInfo): Boolean {
+        return (!entrepreneurInfo.fullName.isEmpty() && !entrepreneurInfo.email.isEmpty()
+                && !entrepreneurInfo.phone.isEmpty() && !entrepreneurInfo.tradeName.isEmpty()
+                && !entrepreneurInfo.birthDate.isEmpty())
     }
 
     fun subscribe(observer: RegisterContract.ViewStateObserver) {

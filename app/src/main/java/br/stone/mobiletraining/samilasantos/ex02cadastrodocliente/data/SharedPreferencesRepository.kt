@@ -44,7 +44,7 @@ class SharedPreferencesRepository(val context: Context) : Repository {
                 KEYS.ENTREPRENEUR_PHONE.key to entity.phone.toString(),
                 KEYS.ENTREPRENEUR_TRADE_NAME.key to entity.tradeName,
                 KEYS.ENTREPRENEUR_BIRTH_DATE.key to entity.birthDate.toString(),
-                KEYS.ENTREPRENEUR_INDIVIDUAL.key to if (entity.individualEntrepreneur) "Sim" else "Não")
+                KEYS.ENTREPRENEUR_INDIVIDUAL.key to (entity.individualEntrepreneur == "Sim"))
 
         val json = JSONObject(entrepreneurInfoMap)
         val existentData = sharedPreferences.getString(KEYS.ENTREPRENEUR_DATA.key, "")
@@ -96,7 +96,7 @@ data class EntrepreneurData(val id: Long,
                             @SerializedName("birth_date")
                             val birthDate: Long,
                             @SerializedName("individual_entrepreneur")
-                            val individualEntrepreneur: Boolean)
+                            val individualEntrepreneur: String)
 
 enum class KEYS(val key: String) {
     SHARED_PREFERENCE_KEY("entrepreneur_db"),

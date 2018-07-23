@@ -9,12 +9,12 @@ object Mapper {
             phone = entrepreneurData.phone,
             tradeName = entrepreneurData.tradeName,
             birthDate = entrepreneurData.birthDate.toDate(),
-            individualEntrepreneur = entrepreneurData.individualEntrepreneur)
+            individualEntrepreneur = (entrepreneurData.individualEntrepreneur == "Sim"))
 
     fun toEntrepreneurData(entrepreneur: Entrepreneur): EntrepreneurData = EntrepreneurData(id = 0, fullName = entrepreneur.fullName,
             email = entrepreneur.email,
             phone = entrepreneur.phone,
             tradeName = entrepreneur.tradeName,
             birthDate = entrepreneur.birthDate.timeInMillis,
-            individualEntrepreneur = entrepreneur.individualEntrepreneur)
+            individualEntrepreneur = if (entrepreneur.individualEntrepreneur) "Sim" else "Não")
 }

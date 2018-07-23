@@ -29,5 +29,6 @@
     <string name="no_valid_info_feedback">Por favor preencha todos os campos com informações válidas.</string>
     <string name="deleting_user_error_feedback">Ocorreu um erro ao deletar usuário.</string>
     <string name="invalid_date_feedback">A data informada é inválida!</string>
+    <string name="fill_all_fields_feedback">Preencha todos os campos</string>
 
 </resources>
