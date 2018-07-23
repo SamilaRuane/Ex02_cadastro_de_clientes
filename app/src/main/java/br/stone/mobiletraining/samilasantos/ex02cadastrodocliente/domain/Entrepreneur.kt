@@ -7,7 +7,7 @@ data class Entrepreneur(val fullName: String,
                         val email: String,
                         val phone: Long,
                         val tradeName: String,
-                        val birthDate: Date,
+                        val birthDate: Calendar,
                         val individualEntrepreneur: Boolean) : Serializable {
 
     fun isValid() = !this.fullName.isEmpty()
@@ -19,7 +19,8 @@ data class Entrepreneur(val fullName: String,
     private fun isPhoneValid() = this.phone > 11111111
             || this.phone > 11111111111
 
-    private fun isBirthDateValid() = (birthDate.before(Date()) || birthDate == Date())
+    private fun isBirthDateValid() = (birthDate.before(Calendar.getInstance())
+            || birthDate == Calendar.getInstance())
 
     override fun equals(other: Any?): Boolean {
         return this.fullName == (other as Entrepreneur).fullName

@@ -39,7 +39,7 @@ class EntrepreneurInfoActivityTest : UiTest() {
                 email = "empresarioonA@gmail.com",
                 phone = 2122222222,
                 tradeName = "Empresa A",
-                birthDate = Date(),
+                birthDate = Calendar.getInstance(),
                 individualEntrepreneur = true))
     }
 

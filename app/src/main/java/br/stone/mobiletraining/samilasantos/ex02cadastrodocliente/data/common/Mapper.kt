@@ -15,6 +15,6 @@ object Mapper {
             email = entrepreneur.email,
             phone = entrepreneur.phone,
             tradeName = entrepreneur.tradeName,
-            birthDate = entrepreneur.birthDate.time,
+            birthDate = entrepreneur.birthDate.timeInMillis,
             individualEntrepreneur = entrepreneur.individualEntrepreneur)
 }

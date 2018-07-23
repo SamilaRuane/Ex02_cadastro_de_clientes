@@ -16,8 +16,8 @@ class GetAllEntrepreneursTest {
 
         //Context
         val repository = Mockito.mock(Repository :: class.java)
-        val objectReturned1 = Entrepreneur ("Foo Bob", "minhaempresa@gmail.com", 2122222222, "Foo Company", Date(), true)
-        val objectReturned2 = Entrepreneur ("Aka T", "minhaempresa@gmail.com", 2122222222, "Foo Company", Date(), true)
+        val objectReturned1 = Entrepreneur ("Foo Bob", "minhaempresa@gmail.com", 2122222222, "Foo Company",Calendar.getInstance(), true)
+        val objectReturned2 = Entrepreneur ("Aka T", "minhaempresa@gmail.com", 2122222222, "Foo Company", Calendar.getInstance(), true)
         Mockito.`when`(repository.findAll()).thenReturn(arrayListOf(objectReturned1, objectReturned2))
 
         //Action

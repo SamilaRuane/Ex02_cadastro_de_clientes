@@ -22,7 +22,7 @@ class SharedPreferencesRepository(val context: Context) : Repository {
                 KEYS.ENTREPRENEUR_EMAIL.key to entity.email,
                 KEYS.ENTREPRENEUR_PHONE.key to entity.phone.toString(),
                 KEYS.ENTREPRENEUR_TRADE_NAME.key to entity.tradeName,
-                KEYS.ENTREPRENEUR_BIRTH_DATE.key to entity.birthDate.time.toString(),
+                KEYS.ENTREPRENEUR_BIRTH_DATE.key to entity.birthDate.timeInMillis.toString(),
                 KEYS.ENTREPRENEUR_INDIVIDUAL.key to if (entity.individualEntrepreneur) "Sim" else "Não")
 
         val json = JSONObject(entrepreneurInfoMap)
