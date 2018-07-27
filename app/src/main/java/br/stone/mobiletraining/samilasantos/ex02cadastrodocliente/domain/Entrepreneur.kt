@@ -20,4 +20,8 @@ data class Entrepreneur(val fullName: String,
             || this.phone > 11111111111
 
     private fun isBirthDateValid() = (birthDate.before(Date()) || birthDate == Date())
+
+    override fun equals(other: Any?): Boolean {
+        return this.fullName == (other as Entrepreneur).fullName
+    }
 }

@@ -38,3 +38,5 @@ fun Activity.showFeedback (message : String, listener: (DialogInterface, Int) ->
     build.show()
 }
 
+fun Long.toDate () : Date = Date (this)
+

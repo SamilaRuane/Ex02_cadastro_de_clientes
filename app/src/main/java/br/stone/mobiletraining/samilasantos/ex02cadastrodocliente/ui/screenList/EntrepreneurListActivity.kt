@@ -30,10 +30,13 @@ class EntrepreneurListActivity : AppCompatActivity(), EntrepreneurListContract.V
         setupView()
     }
 
+    override fun onResume() {
+        viewModel.getAllEntrepreneurs()
+        super.onResume()
+    }
+
     private fun setupView() {
         setupActionbar()
-        viewModel.getAllEntrepreneurs()
-
         button_add.setOnClickListener { startActivity(Intent(this, RegisterActivity::class.java)) }
     }
 

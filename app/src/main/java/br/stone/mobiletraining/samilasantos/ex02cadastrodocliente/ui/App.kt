@@ -5,9 +5,11 @@ import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.di.GraphCon
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.di.Mode
 
 class App : Application(){
-    val injector: GraphConfigurator =  GraphConfigurator.getInstance()
+    lateinit var injector: GraphConfigurator
 
-    init {
+    override fun onCreate() {
+        super.onCreate()
+        injector =  GraphConfigurator.getInstance(this)
         injector.mode = Mode.App
     }
 }
