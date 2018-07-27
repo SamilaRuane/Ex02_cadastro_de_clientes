@@ -7,7 +7,6 @@ import android.support.test.espresso.intent.rule.IntentsTestRule
 import android.support.test.espresso.matcher.ViewMatchers.*
 import android.support.test.runner.AndroidJUnit4
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.R
-import org.hamcrest.Matchers.not
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
@@ -19,11 +18,6 @@ class RegisterScreenActivityTest {
     @JvmField
     val mActivityRule = IntentsTestRule<RegisterActivity>(
             RegisterActivity::class.java, false, true)
-
-    @Test
-    fun confirmButton_shouldBeDisabled() {
-        onView(withId(R.id.button_confirm)).check(matches(not(isEnabled())))
-    }
 
     @Test
     fun confirmButton_shouldBeEnabled (){
@@ -47,6 +41,13 @@ class RegisterScreenActivityTest {
     }
 
     @Test
+    fun whenClickOnConfirmButton_shouldDisplayFillFieldErrorDialog (){
+        onView(withId(R.id.button_confirm)).perform(click())
+        onView(withText("Preencha todos os campos")).check(matches(isDisplayed()))
+        onView(withId(android.R.id.button1)).perform(click())
+    }
+
+    @Test
     fun whenClickOnOkDialogButton_shouldFinishActivity() {
         fillFieldsWithCorrectInfo()
         onView(withId(R.id.button_confirm)).perform(click())
@@ -64,7 +65,6 @@ class RegisterScreenActivityTest {
         onView(withId(android.R.id.button1)).perform(click())
         onView(withId(R.id.edit_birth_date)).perform(closeSoftKeyboard())
         onView(withId(R.id.radio_button_yes)).perform(click())
-        onView(withId(R.id.edit_full_name)).perform(click()).perform(closeSoftKeyboard())
     }
 
     private fun fillFieldsWithCorrectInfo() {
@@ -76,6 +76,5 @@ class RegisterScreenActivityTest {
         onView(withId(android.R.id.button1)).perform(click())
         onView(withId(R.id.edit_birth_date)).perform(closeSoftKeyboard())
         onView(withId(R.id.radio_button_yes)).perform(click())
-        onView(withId(R.id.edit_full_name)).perform(click()).perform(closeSoftKeyboard())
     }
 }

@@ -7,14 +7,15 @@ import android.text.SpannableStringBuilder
 import android.view.MenuItem
 import android.view.View
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.R
-import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.App
-import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.common.ErrorMapper
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.common.parseToString
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.common.showFeedback
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.App
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.common.ErrorMapper
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.di.diInject
 import kotlinx.android.synthetic.main.activity_register.*
 import java.util.*
 
-class RegisterActivity : AppCompatActivity(), RegisterContract.ViewStateObserver, View.OnFocusChangeListener {
+class RegisterActivity : AppCompatActivity(), RegisterContract.ViewStateObserver {
 
     private val calendar = Calendar.getInstance()
 
@@ -22,22 +23,24 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.ViewStateObserver
         edit_birth_date.text = SpannableStringBuilder(calendar.parseToString(year, monthOfYear, dayOfMonth))
     }
 
-    private lateinit var viewModel: RegisterViewModel
+    private val viewModel by diInject<RegisterViewModel>()
 
-    private lateinit var entrepreneur: RegisterContract.ViewState.Item.EntrepreneurInfo
+    private lateinit var entrepreneur: RegisterContract.ViewState.EntrepreneurInfo
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
-        viewModel = (application as App).injector.registerVMInstance()
         viewModel.subscribe(this)
         setupView()
     }
 
+    override fun onResume() {
+        viewModel.handleOnResume()
+        super.onResume()
+    }
+
     private fun setupView() {
         setupActionBar()
-
-        button_confirm.isEnabled = false
 
         edit_birth_date.setOnClickListener {
             DatePickerDialog(this,
@@ -48,15 +51,13 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.ViewStateObserver
         }
 
         button_confirm.setOnClickListener {
-            viewModel.handleConfirmAction(entrepreneur)
+            viewModel.handleConfirmAction(edit_full_name.text.toString(),
+                    edit_email.text.toString(),
+                    edit_phone.text.toString(),
+                    edit_trade_name.text.toString(),
+                    edit_birth_date.text.toString(),
+                    radio_group_individual_entrepreneur.checkedRadioButtonId == R.id.radio_button_yes)
         }
-
-        edit_full_name.onFocusChangeListener = this
-        edit_birth_date.onFocusChangeListener = this
-        edit_email.onFocusChangeListener = this
-        edit_phone.onFocusChangeListener = this
-        edit_trade_name.onFocusChangeListener = this
-        radio_group_individual_entrepreneur.onFocusChangeListener = this
     }
 
     private fun setupActionBar() {
@@ -81,30 +82,24 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.ViewStateObserver
             is RegisterContract.ViewState.GeneralState.ConfirmButton -> {
                 manageButtonState(viewState.buttonState)
             }
+            is RegisterContract.ViewState.GeneralState.ItemState -> {
+                edit_full_name.text = SpannableStringBuilder(viewState.entrepreneurInfo.fullName)
+                edit_email.text = SpannableStringBuilder(viewState.entrepreneurInfo.email)
+                edit_phone.text = SpannableStringBuilder(viewState.entrepreneurInfo.phone)
+                edit_trade_name.text = SpannableStringBuilder(viewState.entrepreneurInfo.tradeName)
+                edit_birth_date.text = SpannableStringBuilder(viewState.entrepreneurInfo.birthDate)
+                if (entrepreneur.individualEntrepreneur) radio_button_yes.isSelected = true else radio_button_no.isSelected = true
+            }
         }
     }
 
     private fun manageButtonState(state: RegisterContract.ViewState.ButtonState) {
         when (state) {
-            is RegisterContract.ViewState.ButtonState.Enabled -> button_confirm.isEnabled = true
-            is RegisterContract.ViewState.ButtonState.Disabled -> button_confirm.isEnabled = false
+            is RegisterContract.ViewState.ButtonState.Enabled -> {
+            }
+            is RegisterContract.ViewState.ButtonState.Disabled ->
+                showFeedback(getString(R.string.fill_all_fields_feedback), { dialog, _ -> dialog.dismiss() })
         }
-    }
-
-    private fun reassignEntrepreneur() {
-        entrepreneur = RegisterContract.ViewState.Item.EntrepreneurInfo(
-                edit_full_name.text.toString(),
-                edit_email.text.toString(),
-                edit_phone.text.toString(),
-                edit_trade_name.text.toString(),
-                edit_birth_date.text.toString(),
-                radio_group_individual_entrepreneur.checkedRadioButtonId == R.id.radio_button_yes
-        )
-    }
-
-    override fun onFocusChange(p0: View?, p1: Boolean) {
-        reassignEntrepreneur()
-        viewModel.handleOnFocusChange(entrepreneur)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
