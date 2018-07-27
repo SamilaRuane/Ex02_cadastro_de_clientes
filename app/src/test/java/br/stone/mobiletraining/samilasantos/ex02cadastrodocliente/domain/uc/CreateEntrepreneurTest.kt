@@ -18,7 +18,7 @@ class CreateEntrepreneurTest {
 
         //Context
         val repository = Mockito.mock(EntrepreneurRepository::class.java)
-        val objectUnderTest = Entrepreneur("Foo Bob", "minhaempresa@gmail.com", 2122222222, "Foo Company", Calendar.getInstance(), true)
+        val objectUnderTest = Entrepreneur(1L,"Foo Bob", "minhaempresa@gmail.com", 2122222222, "Foo Company", Calendar.getInstance(), true)
         Mockito.`when`(repository.create(objectUnderTest)).thenReturn(true)
 
         //Action
@@ -33,7 +33,7 @@ class CreateEntrepreneurTest {
 
         //Context
         val repository = Mockito.mock(EntrepreneurRepository::class.java)
-        val objectUnderTest = Entrepreneur("Foo Bob", "minhaempresa@gmail.com", 2122222222, "Foo Company", Calendar.getInstance(), true)
+        val objectUnderTest = Entrepreneur(1L,"Foo Bob", "minhaempresa@gmail.com", 2122222222, "Foo Company", Calendar.getInstance(), true)
 
         Mockito.`when`(repository.create(objectUnderTest)).thenThrow(RepositoryNotFoundException())
 
@@ -51,7 +51,7 @@ class CreateEntrepreneurTest {
 
         //Context
         val repository = Mockito.mock(EntrepreneurRepository::class.java)
-        val objectUnderTest = Entrepreneur("Foo Bob", "minhaempresa@gmail.com", 2122222222, "Foo Company", Calendar.getInstance(), true)
+        val objectUnderTest = Entrepreneur(1L,"Foo Bob", "minhaempresa@gmail.com", 2122222222, "Foo Company", Calendar.getInstance(), true)
 
         Mockito.`when`(repository.create(objectUnderTest)).thenThrow(UnavailableRepositoryException())
 
@@ -70,7 +70,7 @@ class CreateEntrepreneurTest {
 
         //Context
         val repository = Mockito.mock(EntrepreneurRepository::class.java)
-        val objectUnderTest = Entrepreneur("Foo Bob", "", 2122222222, "Foo Company", Calendar.getInstance(), true)
+        val objectUnderTest = Entrepreneur(1L,"Foo Bob", "", 2122222222, "Foo Company", Calendar.getInstance(), true)
 
         Mockito.`when`(repository.create(objectUnderTest)).thenReturn(true)
 
@@ -88,7 +88,7 @@ class CreateEntrepreneurTest {
 
         //Context
         val repository = Mockito.mock(EntrepreneurRepository::class.java)
-        val objectUnderTest = Entrepreneur("Foo Bob", "minhaempresa@gmail.com", 219999, "Foo Company", Calendar.getInstance(), true)
+        val objectUnderTest = Entrepreneur(1L,"Foo Bob", "minhaempresa@gmail.com", 219999, "Foo Company", Calendar.getInstance(), true)
 
         Mockito.`when`(repository.create(objectUnderTest)).thenReturn(true)
 

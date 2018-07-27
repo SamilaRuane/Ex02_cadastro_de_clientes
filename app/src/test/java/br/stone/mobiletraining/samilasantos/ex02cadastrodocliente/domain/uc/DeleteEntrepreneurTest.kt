@@ -18,14 +18,14 @@ class DeleteEntrepreneurTest {
 
         //Context
         val repository = Mockito.mock(EntrepreneurRepository:: class.java)
-        val objectUnderTest = Entrepreneur("Foo Bob", "minhaempresa@gmail.com", 2122222222, "Foo Company", Calendar.getInstance(), true)
+        val objectUnderTest = Entrepreneur(1L, "Foo Bob", "minhaempresa@gmail.com", 2122222222, "Foo Company", Calendar.getInstance(), true)
         Mockito.`when`(repository.delete(objectUnderTest)).thenReturn(true)
 
         //Action
         val output = DeleteEntrepreneur(repository).execute(objectUnderTest)
 
         //Check
-        assertTrue(output === Result.Success)
+        assertTrue(output == Result.Success)
     }
 
     @Test
@@ -33,7 +33,7 @@ class DeleteEntrepreneurTest {
 
         //Context
         val repository = Mockito.mock(EntrepreneurRepository:: class.java)
-        val objectUnderTest = Entrepreneur("Foo Bob", "minhaempresa@gmail.com", 2122222222, "Foo Company", Calendar.getInstance(), true)
+        val objectUnderTest = Entrepreneur(1L, "Foo Bob", "minhaempresa@gmail.com", 2122222222, "Foo Company", Calendar.getInstance(), true)
 
         Mockito.`when`(repository.delete(objectUnderTest)).thenThrow(RepositoryNotFoundException ())
 
@@ -51,7 +51,7 @@ class DeleteEntrepreneurTest {
 
         //Context
         val repository = Mockito.mock(EntrepreneurRepository:: class.java)
-        val objectUnderTest = Entrepreneur("Foo Bob", "minhaempresa@gmail.com", 2122222222, "Foo Company", Calendar.getInstance(), true)
+        val objectUnderTest = Entrepreneur(1L,"Foo Bob", "minhaempresa@gmail.com", 2122222222, "Foo Company", Calendar.getInstance(), true)
 
         Mockito.`when`(repository.delete(objectUnderTest)).thenThrow(UnavailableRepositoryException ())
 

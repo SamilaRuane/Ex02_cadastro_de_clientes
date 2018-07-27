@@ -1,17 +1,15 @@
 package br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui
 
-import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.data.entrepreneurs.TestEntrepreneurRepository
-import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.di.GraphBuilder
-import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.di.GraphConfigurator
-import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.di.Mode
+import android.support.test.InstrumentationRegistry
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.entrepreneurs.EntrepreneurRepository
+import com.github.salomonbrys.kodein.bind
+import com.github.salomonbrys.kodein.singleton
 
-open class UiTest {
-    protected fun defineTestRepository(graphConfigurator: GraphConfigurator) {
-        graphConfigurator.mode = Mode.Test(
-                GraphBuilder.builder()
-                        .override()
-                        .repository(TestEntrepreneurRepository())
-                        .build()!!
-        )
+object UiTest {
+    fun defineTestRepository(entrepreneurRepository: EntrepreneurRepository) {
+        val injector = (InstrumentationRegistry.getTargetContext().applicationContext as App).injector
+        injector.reconfigureGraph {
+            bind<EntrepreneurRepository>(overrides = true) with singleton { entrepreneurRepository }
+        }
     }
 }
