@@ -64,25 +64,6 @@ class GraphConfigurator private constructor(val context: Context) {
     }
 
     private val diModule = Kodein.Module {
-        bind<EntrepreneurRepository>() with singleton {
-            SharedPreferencesEntrepreneurRepository(instance())
-        }
-
-        bind<EntrepreneurListViewModel>() with provider {
-            EntrepreneurListViewModel(instance())
-        }
-
-        bind<EntrepreneurInfoViewModel>() with provider {
-            EntrepreneurInfoViewModel(instance())
-        }
-
-        bind<RegisterViewModel>() with provider {
-            RegisterViewModel(instance())
-        }
-
-        bind<Context>() with singleton {
-            context
-        }
     }
 
     private val appContainer = Kodein {

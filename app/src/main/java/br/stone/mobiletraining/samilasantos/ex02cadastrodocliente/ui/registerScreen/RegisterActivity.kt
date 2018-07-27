@@ -11,6 +11,7 @@ import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.common.pars
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.common.showFeedback
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.App
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.common.ErrorMapper
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.di.diInject
 import kotlinx.android.synthetic.main.activity_register.*
 import java.util.*
 
@@ -22,14 +23,13 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.ViewStateObserver
         edit_birth_date.text = SpannableStringBuilder(calendar.parseToString(year, monthOfYear, dayOfMonth))
     }
 
-    private lateinit var viewModel: RegisterViewModel
+    private val viewModel by diInject<RegisterViewModel>()
 
     private lateinit var entrepreneur: RegisterContract.ViewState.EntrepreneurInfo
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
-        viewModel = (application as App).injector.registerVMInstance()
         viewModel.subscribe(this)
         setupView()
     }

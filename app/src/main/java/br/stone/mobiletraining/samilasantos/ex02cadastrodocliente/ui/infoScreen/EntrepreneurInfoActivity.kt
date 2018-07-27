@@ -7,18 +7,18 @@ import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.R
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.common.showFeedback
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.App
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.common.ErrorMapper
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.di.diInject
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.infoScreen.EntrepreneurInfoContract.ViewState
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.screenList.EntrepreneurListActivity
 import kotlinx.android.synthetic.main.activity_entrepreneur_info.*
 
 class EntrepreneurInfoActivity : AppCompatActivity(), ViewState.EntrepreneurInfoViewModelObserver {
 
-    private lateinit var viewModel: EntrepreneurInfoViewModel
+    private val viewModel by diInject<EntrepreneurInfoViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_entrepreneur_info)
-        viewModel = (application as App).injector.entrepreneurInfoVMInstance()
         viewModel.subscribe(this)
         setupView()
     }
