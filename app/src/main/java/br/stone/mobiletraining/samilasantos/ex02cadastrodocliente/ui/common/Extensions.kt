@@ -1,4 +1,4 @@
-package br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.data.common
+package br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.common
 
 import android.app.Activity
 import android.app.AlertDialog

@@ -1,11 +1,16 @@
 package br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.screenList
 
-import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.Entrepreneur
-
 interface EntrepreneurListContract {
 
+    data class EntrepreneurItem(
+            val id: Long,
+            val initials: String,
+            val entrepreneurName: String,
+            val tradeName: String
+    )
+
     sealed class ViewState {
-        data class Items (val list: List<Entrepreneur>) : ViewState()
+        data class Items (val list: List<EntrepreneurItem>) : ViewState()
         object Error : ViewState()
     }
 

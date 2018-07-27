@@ -1,10 +1,10 @@
-package br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.data
+package br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.data.entrepreneurs
 
-import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.Entrepreneur
-import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.Repository
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.entrepreneurs.Entrepreneur
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.entrepreneurs.EntrepreneurRepository
 import java.util.*
 
-class TestRepository : Repository {
+class TestEntrepreneurRepository : EntrepreneurRepository {
     override fun create(entity: Entrepreneur): Boolean = true
 
     override fun delete(entity: Entrepreneur): Boolean = true
@@ -15,7 +15,7 @@ class TestRepository : Repository {
             Entrepreneur(2, "Empresário C", "empresarioC@gmail.com", 2122222222, "Empresa C", Calendar.getInstance(), true))
 }
 
-class EmptyRepository : Repository {
+class EmptyEntrepreneurRepository : EntrepreneurRepository {
     override fun create(entity: Entrepreneur): Boolean = true
 
     override fun delete(entity: Entrepreneur): Boolean = true
@@ -23,7 +23,7 @@ class EmptyRepository : Repository {
     override fun findAll(): List<Entrepreneur> = arrayListOf()
 }
 
-class InMemoryRepository : Repository {
+class InMemoryEntrepreneurRepository : EntrepreneurRepository {
     override fun create(entity: Entrepreneur): Boolean = true
 
     override fun delete(entity: Entrepreneur): Boolean = true

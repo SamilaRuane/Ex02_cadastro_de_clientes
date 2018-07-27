@@ -13,7 +13,7 @@ import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
 import android.support.test.espresso.matcher.ViewMatchers.withId
 import android.support.test.runner.AndroidJUnit4
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.R
-import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.data.EmptyRepository
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.data.entrepreneurs.EmptyEntrepreneurRepository
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.UiTest
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.di.GraphBuilder
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.di.GraphConfigurator
@@ -49,7 +49,7 @@ class EntrepreneurListActivityTest : UiTest() {
         GraphConfigurator.getInstance((InstrumentationRegistry.getInstrumentation().targetContext))
                 .mode = Mode.Test(GraphBuilder.builder()
                 .override()
-                .repository(EmptyRepository())
+                .repository(EmptyEntrepreneurRepository())
                 .build()!!)
         mActivityRule.launchActivity(null)
         Espresso.onView(withId(R.id.text_empty_view)).check(matches(isDisplayed()))

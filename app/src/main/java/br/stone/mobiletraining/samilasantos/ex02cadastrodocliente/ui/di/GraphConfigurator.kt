@@ -1,14 +1,14 @@
 package br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.di
 
 import android.content.Context
-import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.data.SharedPreferencesRepository
-import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.Repository
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.data.entrepreneurs.SharedPreferencesEntrepreneurRepository
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.entrepreneurs.EntrepreneurRepository
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.infoScreen.EntrepreneurInfoViewModel
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.registerScreen.RegisterViewModel
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.screenList.EntrepreneurListViewModel
 import com.github.salomonbrys.kodein.*
 
-data class Graph(var repository: Repository? = null,
+data class Graph(var repository: EntrepreneurRepository? = null,
                  var infoViewModel: EntrepreneurInfoViewModel? = null,
                  var registerViewModel: RegisterViewModel? = null,
                  var listViewModel: EntrepreneurListViewModel? = null)
@@ -26,7 +26,7 @@ class GraphBuilder(private val graph: Graph?) {
 
     fun override() = GraphBuilder(graph)
 
-    fun repository(instance: Repository): GraphBuilder {
+    fun repository(instance: EntrepreneurRepository): GraphBuilder {
         graph?.repository = instance
         return this
     }
@@ -64,8 +64,8 @@ class GraphConfigurator private constructor(val context: Context) {
     }
 
     private val diModule = Kodein.Module {
-        bind<Repository>() with singleton {
-            SharedPreferencesRepository(instance())
+        bind<EntrepreneurRepository>() with singleton {
+            SharedPreferencesEntrepreneurRepository(instance())
         }
 
         bind<EntrepreneurListViewModel>() with provider {
@@ -89,31 +89,28 @@ class GraphConfigurator private constructor(val context: Context) {
         import(diModule)
     }
 
-    var mode: Mode? = null
+    var mode: Mode = Mode.App
 
     fun entrepreneurInfoVMInstance(): EntrepreneurInfoViewModel = when (mode) {
         is Mode.App -> appContainer.instance()
         is Mode.Test -> reconfigureContainer((mode as Mode.Test).graph, context).instance()
-        else -> appContainer.instance()
     }
 
     fun entrepreneurListVMInstance(): EntrepreneurListViewModel = when (mode) {
         is Mode.App -> appContainer.instance()
         is Mode.Test -> reconfigureContainer((mode as Mode.Test).graph, context).instance()
-        else -> appContainer.instance()
     }
 
     fun registerVMInstance(): RegisterViewModel = when (mode) {
         is Mode.App -> appContainer.instance()
         is Mode.Test -> reconfigureContainer((mode as Mode.Test).graph, context).instance()
-        else -> appContainer.instance()
     }
 
     private fun reconfigureContainer(graph: Graph, context: Context): Kodein = Kodein {
         import(diModule)
         if (graph.repository != null) {
-            bind<Repository>(overrides = true) with singleton {
-                graph.repository as Repository
+            bind<EntrepreneurRepository>(overrides = true) with singleton {
+                graph.repository as EntrepreneurRepository
             }
         }
 

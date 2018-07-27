@@ -7,8 +7,8 @@ import android.text.SpannableStringBuilder
 import android.view.MenuItem
 import android.view.View
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.R
-import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.data.common.parseToString
-import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.data.common.showFeedback
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.common.parseToString
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.common.showFeedback
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.App
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.common.ErrorMapper
 import kotlinx.android.synthetic.main.activity_register.*

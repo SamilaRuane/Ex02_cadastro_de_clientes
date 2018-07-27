@@ -1,14 +1,14 @@
-package br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.data
+package br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.data.entrepreneurs
 
 import android.content.Context
-import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.data.common.Mapper
-import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.Entrepreneur
-import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.Repository
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.common.toDate
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.entrepreneurs.Entrepreneur
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.entrepreneurs.EntrepreneurRepository
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import org.json.JSONObject
 
-class SharedPreferencesRepository(val context: Context) : Repository {
+class SharedPreferencesEntrepreneurRepository(val context: Context) : EntrepreneurRepository {
 
     private val sharedPreferences = context.getSharedPreferences(KEYS.SHARED_PREFERENCE_KEY.key, Context.MODE_PRIVATE)
 
@@ -74,7 +74,7 @@ class SharedPreferencesRepository(val context: Context) : Repository {
         val entrepreneurList = getData()
         val mappedList = ArrayList<Entrepreneur>()
         for (data in entrepreneurList) {
-            mappedList.add(Mapper.toEntrepreneur(data))
+            mappedList.add(datatoEntrepreneur(data))
         }
         return mappedList
     }
@@ -85,8 +85,8 @@ class SharedPreferencesRepository(val context: Context) : Repository {
     }
 }
 
-data class EntrepreneurList(val entrepreneurData: List<EntrepreneurData>)
-data class EntrepreneurData(val id: Long,
+private data class EntrepreneurList(val entrepreneurData: List<EntrepreneurData>)
+private data class EntrepreneurData(val id: Long,
                             @SerializedName("full_name")
                             val fullName: String,
                             val email: String,
@@ -98,7 +98,7 @@ data class EntrepreneurData(val id: Long,
                             @SerializedName("individual_entrepreneur")
                             val individualEntrepreneur: String)
 
-enum class KEYS(val key: String) {
+private enum class KEYS(val key: String) {
     SHARED_PREFERENCE_KEY("entrepreneur_db"),
     ENTREPRENEUR_DATA("entrepreneur_data"),
     LAST_ID_NUMBER("last_id_number"),
@@ -110,3 +110,17 @@ enum class KEYS(val key: String) {
     ENTREPRENEUR_BIRTH_DATE("birth_date"),
     ENTREPRENEUR_INDIVIDUAL("individual_entrepreneur")
 }
+
+private fun datatoEntrepreneur(entrepreneurData: EntrepreneurData): Entrepreneur = Entrepreneur(id = entrepreneurData.id, fullName = entrepreneurData.fullName,
+        email = entrepreneurData.email,
+        phone = entrepreneurData.phone,
+        tradeName = entrepreneurData.tradeName,
+        birthDate = entrepreneurData.birthDate.toDate(),
+        individualEntrepreneur = (entrepreneurData.individualEntrepreneur == "Sim"))
+
+private fun entrepreneurstoEntrepreneurData(entrepreneur: Entrepreneur): EntrepreneurData = EntrepreneurData(id = entrepreneur.id, fullName = entrepreneur.fullName,
+        email = entrepreneur.email,
+        phone = entrepreneur.phone,
+        tradeName = entrepreneur.tradeName,
+        birthDate = entrepreneur.birthDate.timeInMillis,
+        individualEntrepreneur = if (entrepreneur.individualEntrepreneur) "Sim" else "Não")

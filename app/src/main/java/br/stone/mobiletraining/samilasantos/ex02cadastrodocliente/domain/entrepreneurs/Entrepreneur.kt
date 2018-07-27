@@ -1,4 +1,4 @@
-package br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain
+package br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.entrepreneurs
 
 import java.io.Serializable
 import java.util.*

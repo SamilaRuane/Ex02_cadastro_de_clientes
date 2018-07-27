@@ -1,13 +1,13 @@
 package br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.registerScreen
 
-import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.data.common.toDate
-import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.Entrepreneur
-import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.Repository
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.common.toDate
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.entrepreneurs.Entrepreneur
+import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.entrepreneurs.EntrepreneurRepository
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.common.Result
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.domain.uc.CreateEntrepreneur
 import br.stone.mobiletraining.samilasantos.ex02cadastrodocliente.ui.common.ErrorCode
 
-class RegisterViewModel(private val repository: Repository) {
+class RegisterViewModel(private val repository: EntrepreneurRepository) {
 
     private val viewStateObservers = ArrayList<RegisterContract.ViewStateObserver>()
     private var entrepreneurInfo: RegisterContract.ViewState.EntrepreneurInfo? = null
